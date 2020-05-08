@@ -1,0 +1,25 @@
+{
+  "name": "financas",
+  "version": "1.0.0",
+  "description": "APP Financeiro exclusivo do Maransatto",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Maransatto/api-financas.git"
+  },
+  "keywords": [
+    "api",
+    "finanças",
+    "financeiro",
+    "ynabcopy"
+  ],
+  "author": "Fernando Silva Maransatto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maransatto/api-financas/issues"
+  },
+  "homepage": "https://github.com/Maransatto/api-financas#readme"
+}

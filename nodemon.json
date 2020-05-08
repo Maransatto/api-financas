@@ -1,0 +1,12 @@
+{
+    "env" : {
+        "MYSQL_USER" : "root",
+        "MYSQL_PASSWORD" : "root",
+        "MYSQL_DATABASE" : "financeiro",
+        "MYSQL_HOST" : "localhost",
+        "MYSQL_PORT" : 3306,
+
+        "JWT_KEY" : "Yeshua-is-the-Lord-son-of-God-my-saviour-and-king",
+        "URL_DOMINIO" : "https://api-napkinn.herokuapp.com/"
+    }
+}

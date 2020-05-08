@@ -4,7 +4,8 @@
   "description": "APP Financeiro exclusivo do Maransatto",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/Maransatto/api-financas/issues"
   },
-  "homepage": "https://github.com/Maransatto/api-financas#readme"
+  "homepage": "https://github.com/Maransatto/api-financas#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.3"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
 }

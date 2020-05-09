@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/usuario', usuarioRoute);
+app.use('/usuarios', usuarioRoute);
 
 
 

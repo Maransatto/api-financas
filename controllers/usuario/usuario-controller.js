@@ -91,7 +91,8 @@ exports.login = async (req, res, next) => {
                 message: 'Autenticado com sucesso',
                 token: token,
                 id_usuario: res.locals.usuario.id_usuario,
-                nome: res.locals.usuario.nome
+                nome: res.locals.usuario.nome,
+                email: res.locals.usuario.email
             })
         });
     } catch (error) {

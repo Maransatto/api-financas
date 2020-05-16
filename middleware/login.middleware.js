@@ -18,7 +18,7 @@ exports.required = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const usuario_decodificado = jwt.verify(token, api_config.jwt_key);
-    res.locals.id_usuario = usuario_decodificado.id_usuario;
+    res.locals.usuario = usuario_decodificado;
     next();
   } catch (error) {
     return res.status(401).json({

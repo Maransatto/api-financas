@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const usuarioRoute = require('./routes/usuario/usuario-route');
+const contextoRoute = require('./routes/contexto/contexto-route');
 
 app.use(morgan('dev'));
 
@@ -29,8 +30,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/usuarios', usuarioRoute);
-
-
+app.use('/contextos', contextoRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');

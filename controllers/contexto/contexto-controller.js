@@ -46,7 +46,8 @@ exports.findAllUserContexts = async (req, res, next) => {
                    contextos.nome
               FROM contextos
         INNER JOIN usuarios_contextos
-             WHERE usuarios_contextos.id_usuario = ?`;
+                ON usuarios_contextos.id_contexto   = contextos.id_contexto
+             WHERE usuarios_contextos.id_usuario    = ?`;
         const result = await mysql.execute(query, [res.locals.usuario.id_usuario]);
         return res.status(200).send({
             contextos: result.map(contexto => {

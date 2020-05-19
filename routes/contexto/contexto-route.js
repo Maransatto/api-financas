@@ -9,7 +9,8 @@ router.post(
     login.required,
     contextController.mustNotExists,
     contextController.create,
-    contextController.setUserId
+    contextController.setUserId,
+    contextController.returnCreatedContext
 );
 
 router.get(

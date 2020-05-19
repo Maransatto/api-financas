@@ -2,8 +2,17 @@ const mysql = require("../../mysql");
 
 exports.mustNotExists = async (req, res, next) => {
     try {
-        let query = `SELECT * FROM contextos WHERE nome = ?`;
-        const result = await mysql.execute(query, [req.body.nome]);  
+        let query = `
+            SELECT *
+              FROM contextos
+        INNER JOIN usuarios_contextos
+                ON usuarios_contextos.id_contexto = contextos.id_contexto
+             WHERE contextos.nome                 = ?
+               AND usuarios_contextos.id_usuario  = ?;`;
+        const result = await mysql.execute(query, [
+            req.body.nome,
+            res.locals.usuario.id_usuario
+        ]);  
         if (result.length) { return res.status(403).send({ message: 'Contexto já existe'}); }
         next();
     } catch (error) {
@@ -16,7 +25,10 @@ exports.create = async (req, res, next) => {
     try {
         let query = `INSERT INTO contextos (nome) VALUES (?);`;
         const result = await mysql.execute(query, [req.body.nome]);
-        res.locals.contexto = { id_contexto: result.insertId }
+        res.locals.contexto = {
+            id_contexto: result.insertId,
+            nome: req.body.nome
+        }
         next();
     } catch (error) {
        return res.status(500).send({ error: error }) 
@@ -32,11 +44,18 @@ exports.setUserId = async(req, res, next) => {
             ) VALUES (?,?);
         `
         await mysql.execute(query, [res.locals.usuario.id_usuario, res.locals.contexto.id_contexto]);
-        return res.status(201).send({ message: 'Contexto cadastrado com sucesso.' });
+        next();
     } catch (error) {
         console.error(error);
         return res.status(500).send({ error: error }) 
     }
+}
+
+exports.returnCreatedContext = async (req, res, next) => {
+    return res.status(201).send({
+        contexto: res.locals.contexto,
+        message: 'Contexto criado com sucesso'
+    });
 }
 
 exports.findAllUserContexts = async (req, res, next) => {

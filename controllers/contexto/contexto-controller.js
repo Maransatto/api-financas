@@ -75,7 +75,7 @@ exports.findAllUserContexts = async (req, res, next) => {
                     nome: contexto.nome
                 }
             })
-        })
+        });
     } catch (error) {
         console.error(error);
        return res.status(500).send({ error: error }) 
@@ -110,3 +110,25 @@ exports.delete = async (req, res, next) => {
         return res.status(500).send({ error: error }) 
     }
 };
+
+exports.getAccounts = async (req, res, next) => {
+    try {
+        const query = `
+            SELECT *
+              FROM contas
+             WHERE id_contexto = ?
+        `;
+        const result = await mysql.execute(query, [req.params.id_contexto]);
+        return res.status(200).send({
+            contas: result.map(conta => {
+                return {
+                    id_conta: conta.id_conta,
+                    nome: conta.nome
+                }
+            })
+        });
+    } catch (error) {
+        console.error.error(error);
+        return res.status(500).send({error: error});
+    }
+}

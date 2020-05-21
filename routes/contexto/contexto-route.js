@@ -25,4 +25,7 @@ router.delete(
     contextController.mustBeFromLoggedUser,
     contextController.delete
 )
+
+router.get('/:id_contexto/contas', contextController.getAccounts);
+
 module.exports = router;

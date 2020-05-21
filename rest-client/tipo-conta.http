@@ -1,0 +1,5 @@
+# Retorna todos os tipos de conta
+GET http://localhost:3000/tipos-contas
+Content-Type: application/json
+
+### 

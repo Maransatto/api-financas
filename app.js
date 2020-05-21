@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const usuarioRoute = require('./routes/usuario/usuario-route');
 const contextoRoute = require('./routes/contexto/contexto-route');
+const tipoContaRoute = require('./routes/tipo-conta/tipo-conta-route');
 
 app.use(morgan('dev'));
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 
 app.use('/usuarios', usuarioRoute);
 app.use('/contextos', contextoRoute);
+app.use('/tipos-contas', tipoContaRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');

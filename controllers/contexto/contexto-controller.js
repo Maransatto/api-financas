@@ -123,7 +123,8 @@ exports.getAccounts = async (req, res, next) => {
             contas: result.map(conta => {
                 return {
                     id_conta: conta.id_conta,
-                    nome: conta.nome
+                    nome: conta.nome,
+                    encerrada: conta.encerrada
                 }
             })
         });

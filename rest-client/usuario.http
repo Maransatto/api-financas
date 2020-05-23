@@ -14,7 +14,6 @@ Content-Type: application/json
 GET http://localhost:3000/usuarios
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21lIjoiRmVybmFuZG8gU2lsdmEgTWFyYW5zYXR0byIsImVtYWlsIjoiZmVybmFuZG8ubWFyYW5zYXR0b0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRBVTExLmZ2cjJ2TThrcFgvV1hQV1hPeUdjYldyZEhwc1ZpWW1DSTJWOVRBQXgyY3FqTmE2LiIsImlhdCI6MTU4ODkwOTMyOH0.TvBQp6lubPxZl8l4SoOerhmcwMuEK3QaR9oomqhykec
-
 ###
 
 # Retorna todos os usuários
@@ -25,3 +24,5 @@ Content-Type: application/json
     "email" : "fernando.maransatto@gmail.com",
     "password" : "teste"
 }
+
+###

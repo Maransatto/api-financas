@@ -36,8 +36,12 @@ exports.create = async (req, res, next) => {
         return res.status(201).send({
             conta: {
                 id_conta: result.insertId,
-                nome: req.body.nome
-            }
+                id_contexto: req.body.id_contexto,
+                id_tipo_conta: req.body.id_tipo_conta,
+                nome: req.body.nome,
+                encerrada: false
+            },
+            message: 'Conta criada com sucesso'
         });
     } catch (error) {
         console.error(error);

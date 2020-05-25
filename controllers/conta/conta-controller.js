@@ -2,7 +2,7 @@ const mysql = require("../../mysql");
 
 exports.mustNotExists = async (req, res, next) => {
     try {
-        let query = `
+        const query = `
             SELECT *
               FROM contas
              WHERE id_contexto  = ?
@@ -22,7 +22,7 @@ exports.mustNotExists = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
     try {
-        let query = `
+        const query = `
             INSERT INTO contas (
                 id_contexto,
                 id_tipo_conta,
@@ -44,3 +44,22 @@ exports.create = async (req, res, next) => {
         return res.status(500).send({ error: error }) 
     }
 };
+
+exports.getTypes = async (req, res, next) => {
+    try {
+        const query = `SELECT * FROM tipos_contas;`;
+        const result = await mysql.execute(query);
+        return res.status(200).send({
+            tipos_contas: result.map(tipo_conta => {
+                return {
+                    id_tipo_conta: tipo_conta.id_tipo_conta,
+                    nome: tipo_conta.nome
+                }
+                
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: error });
+    }
+}

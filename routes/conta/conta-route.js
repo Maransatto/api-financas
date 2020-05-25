@@ -11,4 +11,9 @@ router.post(
     contaController.create
 )
 
+router.get(
+    '/tipos',
+    contaController.getTypes
+)
+
 module.exports = router;

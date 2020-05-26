@@ -3,6 +3,7 @@ const router = express.Router();
 
 const login = require('../../middleware/login.middleware');
 const contextController = require('../../controllers/contexto/contexto-controller');
+const transactionController = require('../../controllers/transacao/transacao-controller');
 
 router.post(
     '/',
@@ -24,12 +25,18 @@ router.delete(
     login.required,
     contextController.mustBeFromLoggedUser,
     contextController.delete
-)
+);
 
 router.get(
     '/:id_contexto/contas',
     login.required,
     contextController.getAccounts
 );
+
+router.get(
+    '/:id_contexto/transacoes',
+    login.required,
+    transactionController.getTransactions
+)
 
 module.exports = router;

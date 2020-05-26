@@ -66,4 +66,4 @@ exports.getTypes = async (req, res, next) => {
         console.error(error);
         return res.status(500).send({ error: error });
     }
-}
+};

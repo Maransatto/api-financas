@@ -7,6 +7,7 @@ const usuarioRoute = require('./routes/usuario/usuario-route');
 const contextoRoute = require('./routes/contexto/contexto-route');
 const tipoContaRoute = require('./routes/tipo-conta/tipo-conta-route');
 const contaRoute = require('./routes/conta/conta-route');
+const transacaoRoute = require('./routes/transacao/transacao-route');
 
 app.use(morgan('dev'));
 
@@ -35,6 +36,7 @@ app.use('/usuarios', usuarioRoute);
 app.use('/contextos', contextoRoute);
 app.use('/tipos-contas', tipoContaRoute);
 app.use('/contas', contaRoute);
+app.use('/transacoes', transacaoRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');

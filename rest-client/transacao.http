@@ -1,0 +1,19 @@
+# Insere uma transação
+POST http://localhost:3000/transacoes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21lIjoiRmVybmFuZG8gU2lsdmEgTWFyYW5zYXR0byIsImVtYWlsIjoiZmVybmFuZG8ubWFyYW5zYXR0b0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRBVTExLmZ2cjJ2TThrcFgvV1hQV1hPeUdjYldyZEhwc1ZpWW1DSTJWOVRBQXgyY3FqTmE2LiIsImlhdCI6MTU4ODkwOTMyOH0.TvBQp6lubPxZl8l4SoOerhmcwMuEK3QaR9oomqhykec
+
+{
+    "id_conta" : 7,
+    "id_contato" : null,
+    "data" : "2020-05-24",
+    "aprovada" : true,
+    "conciliada" : false,
+    "nota" : "Combustível",
+    "valor" : 40.00,
+    "categorias" : [{
+        "id_categoria": 2,
+        "valor": 40.00
+    }]
+}
+###

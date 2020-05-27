@@ -3,9 +3,9 @@ const mysql = require("../../mysql");
 exports.create = async (req, res, next) => {
     try {
         const query = `
-            INSERT INTO agrupamentos (id_contexo, nome) VALUES (?,?);
+            INSERT INTO agrupamentos (id_contexto, nome) VALUES (?,?);
         `;
-        const result = mysql.execute(query, [req.body.id_contexto, req.body.nome]);
+        const result = await mysql.execute(query, [req.body.id_contexto, req.body.nome]);
         return res.status(201).send({
             agrupamento: {
                id_agrupamento: result.insertId,

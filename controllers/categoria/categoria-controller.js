@@ -9,7 +9,7 @@ exports.create = async (req, res, next) => {
                 nome
             ) VALUES (?,?,?);
         `;
-        const result = mysql.execute(query, [
+        const result = await mysql.execute(query, [
             req.body.id_agrupamento,
             req.body.id_conta,
             req.body.nome

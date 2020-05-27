@@ -8,7 +8,7 @@ const contextoRoute = require('./routes/contexto/contexto-route');
 const tipoContaRoute = require('./routes/tipo-conta/tipo-conta-route');
 const contaRoute = require('./routes/conta/conta-route');
 const transacaoRoute = require('./routes/transacao/transacao-route');
-const agrupamentoRoute = require('./router/transacao/');
+const agrupamentoRoute = require('./routes/agrupamento/agrupamento-route');
 
 app.use(morgan('dev'));
 

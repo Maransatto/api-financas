@@ -1,0 +1,10 @@
+# Cria um agrupamento
+POST http://localhost:3000/agrupamentos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJub21lIjoiRmVybmFuZG8gU2lsdmEgTWFyYW5zYXR0byIsImVtYWlsIjoiZmVybmFuZG8ubWFyYW5zYXR0b0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCR5ZFpZdVlPZ29iejR2RFV3WXRsdS5PTmlhNFVSTFBicUZwZUhKOGVRWDU0b3d4Q2V5VldFTyIsImlhdCI6MTU4OTg0MTI2N30.jkVhD5FBMQpBfhmH09KMMaYBRWEWeVYP70gM8ZEKXPk
+
+{
+    "id_contexto" : 25,
+    "nome": "3 - Casa/Manutenção/Outros"
+}
+###

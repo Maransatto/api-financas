@@ -26,6 +26,7 @@ exports.create = async (req, res, next) => {
             id_transacao: result.insertId,
             id_conta : req.body.id_conta,
             id_contato : req.body.id_contato,
+            nome_contato: req.body.nome_contato,
             data : req.body.data,
             aprovada : req.body.aprovada,
             conciliada : req.body.conciliada,

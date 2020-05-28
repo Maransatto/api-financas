@@ -8,6 +8,6 @@ router.post(
     '/',
     login.required,
     agrupamentoController.create
-)
+);
 
 module.exports = router;

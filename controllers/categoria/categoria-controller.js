@@ -26,3 +26,29 @@ exports.create = async (req, res, next) => {
         return res.status(500).send({ error: error });
     }
 };
+
+exports.findByContext = async (req, res, next) => {
+    try {
+        const query = `
+            SELECT categorias.id_agrupamento,
+                   categorias.id_categoria,
+                   categorias.nome
+              FROM categorias
+        INNER JOIN agrupamentos
+                ON agrupamentos.id_agrupamento = categorias.id_agrupamento
+             WHERE agrupamentos.id_contexto    = ?;
+        `;
+        const categorias = await mysql.execute(query, [req.params.id_contexto]);
+        return res.status(200).send({
+            agrupamentos: res.locals.agrupamentos.map(a => {
+                return {
+                    ...a,
+                    categorias: categorias.filter(c => c.id_agrupamento == a.id_agrupamento)
+                }
+            })
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: error });
+    }
+};

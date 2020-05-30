@@ -1,7 +1,7 @@
 const mysql = require('../../mysql');
 const moment = require('moment');
 
-exports.createBudgetForCurrentAndNextMonth = async(req, res, next) => {
+exports.createBudgetsForCurrentAndNextMonth = async(req, res, next) => {
     try {
         // REGRA: Se não existe orçamento para o mês seguinte, criar, para o atual e o próximo
         const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -45,7 +45,7 @@ exports.getBudgets = async(req, res, next) => {
     }
 };
 
-exports.createBudgetCategories = async (req, res, next) => {
+exports.createBudgetsCategories = async (req, res, next) => {
     try {
         const query = `
             INSERT IGNORE INTO orcamentos_categorias (

@@ -55,8 +55,8 @@ router.get(
     login.required,
 
     // manage new months
-    budgetController.createBudgetForCurrentAndNextMonth,
-    budgetController.createBudgetCategories,
+    budgetController.createBudgetsForCurrentAndNextMonth,
+    budgetController.createBudgetsCategories,
 
     // gather information
     budgetController.getBudgets,

@@ -120,7 +120,7 @@ exports.getBudgetValues = async (req, res, next) => {
                             const valor = orcado.length ? orcado[0].valor : 0;
                             return {
                                 ...categoria,
-                                valor: valor
+                                valor_orcado: valor
                             }
                         })
                     }

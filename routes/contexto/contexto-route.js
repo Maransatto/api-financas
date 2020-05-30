@@ -53,7 +53,7 @@ router.get(
 router.get(
     '/:id_contexto/orcamentos',
     login.required,
-    
+
     // manage new months
     budgetController.createBudgetForCurrentAndNextMonth,
     budgetController.createBudgetCategories,
@@ -63,6 +63,7 @@ router.get(
     groupController.getGroups,
     categoryController.getCategories,
     budgetController.pushGroupsIntoBudgets,
+    budgetController.getBudgetValues,
     budgetController.returnBudgets
 )
 

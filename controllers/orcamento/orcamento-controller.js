@@ -93,3 +93,43 @@ exports.pushGroupsIntoBudgets = async (req, res, next) => {
 
     next();
 };
+
+exports.getBudgetValues = async (req, res, next) => {
+    try {
+        const query = `
+                SELECT orcamentos_categorias.id_orcamento,
+                       orcamentos_categorias.id_categoria,
+                       orcamentos_categorias.valor,
+                       orcamentos.data
+                  FROM orcamentos_categorias
+            INNER JOIN orcamentos
+                    ON orcamentos.id_orcamento  = orcamentos_categorias.id_orcamento
+                 WHERE orcamentos.id_contexto   = ?;`;
+        const results = await mysql.execute(query, [req.params.id_contexto]);
+        res.locals.orcamentos = res.locals.orcamentos.map(orcamento => {
+            return {
+                ...orcamento,
+                agrupamentos: orcamento.agrupamentos.map(agrupamento => {
+                    return {
+                        ...agrupamento,
+                        categorias: agrupamento.categorias.map(categoria => {
+                            const orcado = results.filter(r => 
+                                r.id_categoria   === categoria.id_categoria &&
+                                r.data.getTime() === orcamento.data.getTime()
+                            );
+                            const valor = orcado.length ? orcado[0].valor : 0;
+                            return {
+                                ...categoria,
+                                valor: valor
+                            }
+                        })
+                    }
+                })
+            }
+        });
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: error });
+    }
+};

@@ -27,7 +27,7 @@ exports.create = async (req, res, next) => {
     }
 };
 
-exports.findByContext = async (req, res, next) => {
+exports.getCategories = async (req, res, next) => {
     try {
         const query = `
             SELECT categorias.id_agrupamento,
@@ -38,22 +38,21 @@ exports.findByContext = async (req, res, next) => {
                 ON agrupamentos.id_agrupamento = categorias.id_agrupamento
              WHERE agrupamentos.id_contexto    = ?;
         `;
-        const categorias = await mysql.execute(query, [req.params.id_contexto]);
-        return res.status(200).send({
-            agrupamentos: res.locals.agrupamentos.map(a => {
-                return {
-                    ...a,
-                    categorias: categorias
-                                    .filter(c => c.id_agrupamento == a.id_agrupamento)
-                                    .map(c => {
-                                        return {
-                                            id_categoria: c.id_categoria,
-                                            nome: c.nome
-                                        }
-                                    })
-                }
-            })
+        const result = await mysql.execute(query, [req.params.id_contexto]);
+        res.locals.agrupamentos = res.locals.agrupamentos.map(a => {
+            return {
+                ...a,
+                categorias: result
+                                .filter(c => c.id_agrupamento == a.id_agrupamento)
+                                .map(c => {
+                                    return {
+                                        id_categoria: c.id_categoria,
+                                        nome: c.nome
+                                    }
+                                })
+            }
         });
+        next();
     } catch (error) {
         console.error(error);
         return res.status(500).send({ error: error });

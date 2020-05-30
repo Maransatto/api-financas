@@ -18,7 +18,7 @@ exports.create = async (req, res, next) => {
     }
 };
 
-exports.findByContext = async (req, res, next) => {
+exports.getGroups = async (req, res, next) => {
     try {
         const query = `
             SELECT agrupamentos.id_agrupamento,
@@ -38,4 +38,10 @@ exports.findByContext = async (req, res, next) => {
         console.error(error);
         return res.status(500).send({ error: error });
     }
+};
+
+exports.returnGroups = async(req, res, next) => {
+    return res.status(200).send({
+        agrupamentos: res.locals.agrupamentos
+    })
 };

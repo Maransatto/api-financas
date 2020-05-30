@@ -47,8 +47,7 @@ exports.setCategories = async (req, res, next) => {
                 id_transacao,
                 id_categoria,
                 valor
-            ) VALUES ?;
-        `;
+            ) VALUES ?;`;
         const categorias = req.body.categorias.map(c => [
             res.locals.transacao.id_transacao,
             c.id_categoria,

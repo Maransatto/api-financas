@@ -6,6 +6,7 @@ const contextController = require('../../controllers/contexto/contexto-controlle
 const transactionController = require('../../controllers/transacao/transacao-controller');
 const groupController = require('../../controllers/agrupamento/agrupamento-controller');
 const categoryController = require('../../controllers/categoria/categoria-controller');
+const budgetController = require('../../controllers/orcamento/orcamento-controller');
 
 router.post(
     '/',
@@ -43,8 +44,26 @@ router.get(
 
 router.get(
     '/:id_contexto/categorias',
-    groupController.findByContext,
-    categoryController.findByContext
+    login.required,
+    groupController.getGroups,
+    categoryController.getCategories,
+    groupController.returnGroups
+)
+
+router.get(
+    '/:id_contexto/orcamentos',
+    login.required,
+    
+    // manage new months
+    budgetController.createBudgetForCurrentAndNextMonth,
+    budgetController.createBudgetCategories,
+
+    // gather information
+    budgetController.getBudgets,
+    groupController.getGroups,
+    categoryController.getCategories,
+    budgetController.pushGroupsIntoBudgets,
+    budgetController.returnBudgets
 )
 
 module.exports = router;

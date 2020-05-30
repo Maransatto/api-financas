@@ -43,7 +43,14 @@ exports.findByContext = async (req, res, next) => {
             agrupamentos: res.locals.agrupamentos.map(a => {
                 return {
                     ...a,
-                    categorias: categorias.filter(c => c.id_agrupamento == a.id_agrupamento)
+                    categorias: categorias
+                                    .filter(c => c.id_agrupamento == a.id_agrupamento)
+                                    .map(c => {
+                                        return {
+                                            id_categoria: c.id_categoria,
+                                            nome: c.nome
+                                        }
+                                    })
                 }
             })
         });

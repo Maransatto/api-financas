@@ -120,7 +120,9 @@ exports.getBudgetValues = async (req, res, next) => {
                             const valor = orcado.length ? orcado[0].valor : 0;
                             return {
                                 ...categoria,
-                                valor_orcado: valor
+                                valor_orcado: valor,
+                                valor_atividades: 0, //TODO: criar function mysql pra retornar isso
+                                valor_disponivel: 0 // TODO: criar function mysql pra retornar isso
                             }
                         })
                     }

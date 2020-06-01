@@ -11,7 +11,8 @@ exports.create = async (req, res, next) => {
                id_agrupamento: result.insertId,
                id_contexto: req.body.id_contexto,
                nome: req.body.nome
-            }
+            },
+            message: 'Agrupamento criado com sucesso'
         });
     } catch (error) {
         return res.status(500).send({ error: error });

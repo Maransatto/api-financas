@@ -20,7 +20,8 @@ exports.create = async (req, res, next) => {
                 id_agrupamento: req.body.id_agrupamento,
                 id_conta: req.body.id_conta,
                 nome: req.body.nome
-            }
+            },
+            message: 'Categoria criada com sucesso.'
         })
     } catch (error) {
         return res.status(500).send({ error: error });

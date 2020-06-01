@@ -73,7 +73,6 @@ exports.createBudgetsCategories = async (req, res, next) => {
     }
 };
 
-
 exports.returnBudgets = async(req, res, next) => {
     return res.status(200).send({
         orcamentos: res.locals.orcamentos
@@ -121,8 +120,7 @@ exports.getBudgetValues = async (req, res, next) => {
                             return {
                                 ...categoria,
                                 valor_orcado: valor,
-                                valor_atividades: 0, //TODO: criar function mysql pra retornar isso
-                                valor_disponivel: 0 // TODO: criar function mysql pra retornar isso
+                                valor_atividades: 50 //TODO: criar function mysql pra retornar isso (ficou fixo para teste)
                             }
                         })
                     }
@@ -132,6 +130,25 @@ exports.getBudgetValues = async (req, res, next) => {
         next();
     } catch (error) {
         console.error(error);
+        return res.status(500).send({ error: error });
+    }
+};
+
+exports.changeBudgetValue = async (req, res, next) => {
+    try {
+        const query = `
+            UPDATE orcamentos_categorias
+               SET valor        = ?
+             WHERE id_orcamento = ?
+               AND id_categoria = ?
+        `;
+        await mysql.execute(query, [
+            req.body.valor,
+            req.body.id_orcamento,
+            req.body.id_categoria
+        ]);
+        return res.status(201).send({ message: 'Orçamento alterado com sucesso' });
+    } catch (error) {
         return res.status(500).send({ error: error });
     }
 };

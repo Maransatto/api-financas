@@ -20,7 +20,8 @@ router.get(
 router.get(
     '/:id_conta/transacoes',
     login.required,
-    transactionController.getTransactions
+    transactionController.getTransactions,
+    transactionController.returnTransactions
 )
 
 module.exports = router;

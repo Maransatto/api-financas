@@ -124,6 +124,12 @@ exports.getTransactions = async (req, res, next) => {
     }
 };
 
+exports.returnTransactions = async (req, res, next) => {
+    return res.status(200).send({
+        transacoes: res.locals.transacoes
+    });
+};
+
 exports.getTransactionCategories = async(req, res, next) => {
     try {
         const query = `

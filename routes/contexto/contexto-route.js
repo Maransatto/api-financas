@@ -39,7 +39,8 @@ router.get(
 router.get(
     '/:id_contexto/transacoes',
     login.required,
-    transactionController.getTransactions
+    transactionController.getTransactions,
+    transactionController.returnTransactions
 )
 
 router.get(

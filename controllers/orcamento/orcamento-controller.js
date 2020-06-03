@@ -96,14 +96,28 @@ exports.pushGroupsIntoBudgets = async (req, res, next) => {
 exports.getBudgetValues = async (req, res, next) => {
     try {
         const query = `
-                SELECT orcamentos_categorias.id_orcamento,
-                       orcamentos_categorias.id_categoria,
-                       orcamentos_categorias.valor,
-                       orcamentos.data
-                  FROM orcamentos_categorias
-            INNER JOIN orcamentos
-                    ON orcamentos.id_orcamento  = orcamentos_categorias.id_orcamento
-                 WHERE orcamentos.id_contexto   = ?;`;
+                    SELECT orcamentos_categorias.id_orcamento,
+                           orcamentos_categorias.id_categoria,
+                           ROUND(orcamentos_categorias.valor,2) AS valor_orcado,
+                           orcamentos.data,
+                           IFNULL((
+                                 SELECT ROUND(SUM(transacoes_categorias.valor),2) AS valor
+                                   FROM transacoes
+                             INNER JOIN transacoes_categorias
+                                     ON transacoes_categorias.id_transacao  = transacoes.id_transacao
+                             INNER JOIN contas
+                                     ON contas.id_conta                     = transacoes.id_conta
+                                  WHERE contas.id_contexto                  = orcamentos.id_contexto
+                                    AND transacoes_categorias.id_categoria  = orcamentos_categorias.id_categoria
+                                    AND (
+                                                MONTH(transacoes.data) = MONTH(orcamentos.data)
+                                            AND YEAR(transacoes.data) = YEAR(orcamentos.data)
+                                        )
+                            ),0) AS valor_atividades
+                      FROM orcamentos_categorias
+                INNER JOIN orcamentos
+                        ON orcamentos.id_orcamento  = orcamentos_categorias.id_orcamento
+                     WHERE orcamentos.id_contexto   = ?`;
         const results = await mysql.execute(query, [req.params.id_contexto]);
         res.locals.orcamentos = res.locals.orcamentos.map(orcamento => {
             return {
@@ -116,11 +130,12 @@ exports.getBudgetValues = async (req, res, next) => {
                                 r.id_categoria   === categoria.id_categoria &&
                                 r.data.getTime() === orcamento.data.getTime()
                             );
-                            const valor = orcado.length ? orcado[0].valor : 0;
+                            const valor             = orcado.length ? orcado[0].valor_orcado : 0;
+                            const valor_atividades  = orcado.length ? orcado[0].valor_atividades : 0;
                             return {
                                 ...categoria,
                                 valor_orcado: valor,
-                                valor_atividades: 50 //TODO: criar function mysql pra retornar isso (ficou fixo para teste)
+                                valor_atividades: valor_atividades
                             }
                         })
                     }

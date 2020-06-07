@@ -132,15 +132,43 @@ exports.returnTransactions = async (req, res, next) => {
 
 exports.getTransactionCategories = async(req, res, next) => {
     try {
-        const query = `
-            SELECT categorias.id_categoria,
+        let query = `
+            SELECT transacoes_categorias.id_transacao,
+                   categorias.id_categoria,
                    categorias.nome
               FROM transacoes_categorias
         INNER JOIN categorias
-                ON categorias.id_categoria = transacoes_categorias.id_categoria
-             WHERE transacoes_categorias.id_transacao = 8;
+                ON categorias.id_categoria              = transacoes_categorias.id_categoria
+        INNER JOIN transacoes
+                ON transacoes.id_transacao              = transacoes_categorias.id_transacao
+        INNER JOIN contas
+                ON contas.id_conta                      = transacoes.id_conta
+             WHERE
         `;
-        const result = await mysql.execute(query, [])
+
+        if (req.params.id_contexto) {
+            query += ` contas.id_contexto   = ?`
+        } else {
+            query += ` contas.id_conta      = ?`
+        }
+
+        const result = await mysql.execute(query, [
+            req.params.id_contexto ? req.params.id_contexto : req.params.id_conta
+        ]);
+
+        res.locals.transacoes = res.locals.transacoes.map(transacao => {
+            return {
+                ...transacao,
+                categorias: result.filter(c => c.id_transacao === transacao.id_transacao)
+                                .map(c => {
+                                    return {
+                                        id_categoria: c.id_categoria,
+                                        nome: c.nome
+                                    }
+                                })
+            }
+        });
+        next()
     } catch (error) {
         return res.status(500).send({ error: error });
     }

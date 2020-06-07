@@ -40,6 +40,7 @@ router.get(
     '/:id_contexto/transacoes',
     login.required,
     transactionController.getTransactions,
+    transactionController.getTransactionCategories,
     transactionController.returnTransactions
 )
 

@@ -6,15 +6,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxL
 {
     "id_conta" : 8,
     "id_contexto" : 25,
-    "nome_contato" : "Posto Pompéia",
-    "data" : "2020-05-24",
+    "nome_contato" : "Mercado Líder",
+    "data" : "2020-06-7",
     "aprovada" : true,
     "conciliada" : false,
-    "nota" : "Combustível",
-    "valor" : 40.00,
+    "nota" : "Várias coisas",
+    "valor" : 80.00,
     "categorias" : [{
         "id_categoria": 2,
-        "valor": 40.00
+        "valor": 50.00
+    }, {
+        "id_categoria": 4,
+        "valor": 30.00
     }]
 }
 ###

@@ -21,6 +21,7 @@ router.get(
     '/:id_conta/transacoes',
     login.required,
     transactionController.getTransactions,
+    transactionController.getTransactionCategories,
     transactionController.returnTransactions
 )
 

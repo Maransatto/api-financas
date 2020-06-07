@@ -83,7 +83,14 @@ exports.getTransactions = async (req, res, next) => {
                    transacoes.aprovada,
                    transacoes.conciliada,
                    transacoes.nota,
-                   transacoes.valor
+                   CASE WHEN transacoes.valor < 0
+                        THEN ROUND(ABS(transacoes.valor), 2)
+                        ELSE 0
+                   END as valor_saida,
+                   CASE WHEN transacoes.valor > 0
+                        THEN ROUND(transacoes.valor, 2)
+                        ELSE 0
+                   END as valor_entrada
 
               FROM transacoes
         INNER JOIN contas
@@ -113,8 +120,8 @@ exports.getTransactions = async (req, res, next) => {
                 aprovada: transacao.aprovada,
                 conciliada: transacao.conciliada,
                 nota: transacao.nota,
-                valor: transacao.valor
-                // TODO: retornar todas as categorias
+                valor_saida: transacao.valor_saida,
+                varor_entrada: transacao.valor_entrada
             }
         });
         next();

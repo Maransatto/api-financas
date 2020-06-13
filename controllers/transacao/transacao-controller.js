@@ -72,7 +72,7 @@ exports.update = async (req, res, next) => {
             aprovada : req.body.aprovada,
             conciliada : req.body.conciliada,
             nota : req.body.nota,
-            valor : req.body.valor
+            valor : req.body.valor_entrada > 0 ? req.body.valor_entrada : (req.body.valor_saida * -1)
         };
         next();
     } catch (error) {
@@ -93,7 +93,7 @@ exports.removeCategories = async (req, res, next) => {
 
 exports.setCategories = async (req, res, next) => {
     try {
-        if (req.body.categorias.length) {
+        if (req.body.categorias && req.body.categorias.length) {
             const query = `
                 INSERT INTO transacoes_categorias (
                     id_transacao,
@@ -103,7 +103,7 @@ exports.setCategories = async (req, res, next) => {
             const categorias = req.body.categorias.map(c => [
                 res.locals.transacao.id_transacao,
                 c.id_categoria,
-                c.valor
+                res.locals.transacao.valor
             ]);
             await mysql.execute(query, [categorias]);
             res.locals.transacao.categorias = req.body.categorias;

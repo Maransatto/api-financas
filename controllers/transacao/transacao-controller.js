@@ -40,6 +40,57 @@ exports.create = async (req, res, next) => {
     }
 };
 
+exports.update = async (req, res, next) => {
+    try {
+        const query = `
+            UPDATE transacoes
+               SET id_conta         = ?,
+                   id_contato       = ?,
+                   data             = ?,
+                   aprovada         = ?,
+                   conciliada       = ?,
+                   nota             = ?,
+                   valor            = ?
+             WHERE id_transacao     = ?;
+        `;
+        await mysql.execute(query, [
+            req.body.id_conta,
+            req.body.id_contato,
+            req.body.data,
+            req.body.aprovada,
+            req.body.conciliada,
+            req.body.nota,
+            req.body.valor,
+            req.params.id_transacao
+        ]);
+        res.locals.transacao = {
+            id_transacao: parseInt(req.params.id_transacao, 0),
+            id_conta : req.body.id_conta,
+            id_contato : req.body.id_contato,
+            nome_contato: req.body.nome_contato,
+            data : req.body.data,
+            aprovada : req.body.aprovada,
+            conciliada : req.body.conciliada,
+            nota : req.body.nota,
+            valor : req.body.valor
+        };
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: error });
+    }
+}
+
+exports.removeCategories = async (req, res, next) => {
+    try {
+        const query = `DELETE FROM transacoes_categorias WHERE id_transacao = ?`;
+        await mysql.execute(query, [res.locals.transacao.id_transacao]);
+        next();
+    } catch (error) {
+        return res.status(500).send({ error: error });
+    }
+};
+
 exports.setCategories = async (req, res, next) => {
     try {
         const query = `

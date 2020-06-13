@@ -21,3 +21,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxL
     }]
 }
 ###
+
+# Update a Transaction
+PATCH http://localhost:3000/transacoes/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21lIjoiRmVybmFuZG8gU2lsdmEgTWFyYW5zYXR0byIsImVtYWlsIjoiZmVybmFuZG8ubWFyYW5zYXR0b0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRBVTExLmZ2cjJ2TThrcFgvV1hQV1hPeUdjYldyZEhwc1ZpWW1DSTJWOVRBQXgyY3FqTmE2LiIsImlhdCI6MTU4ODkwOTMyOH0.TvBQp6lubPxZl8l4SoOerhmcwMuEK3QaR9oomqhykec
+
+{
+    "id_conta" : 8,
+    "id_contexto" : 25,
+    "nome_contato" : "Pizzaria Donatelo",
+    "data" : "2020-06-12",
+    "aprovada" : false,
+    "conciliada" : false,
+    "nota" : "Pizza de Calabreza",
+    "valor" : 65.00,
+    "categorias" : [{
+        "id_categoria": 3,
+        "valor": 65.00
+    }]
+}
+###

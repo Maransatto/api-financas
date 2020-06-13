@@ -11,6 +11,18 @@ router.post(
     contatoController.findByName,
     contatoController.create,
     transacaoController.create,
+    transacaoController.removeCategories,
+    transacaoController.setCategories,
+    transacaoController.returnCreatedTransaction
+)
+
+router.patch(
+    '/:id_transacao',
+    login.required,
+    contatoController.findByName,
+    contatoController.create,
+    transacaoController.update,
+    transacaoController.removeCategories,
     transacaoController.setCategories,
     transacaoController.returnCreatedTransaction
 )

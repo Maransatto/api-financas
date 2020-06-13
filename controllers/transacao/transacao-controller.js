@@ -128,6 +128,7 @@ exports.getTransactions = async (req, res, next) => {
         let query = `
             SELECT transacoes.id_transacao,
                    transacoes.id_conta,
+                   contatos.id_contexto,
                    contatos.id_contato,
                    contatos.nome            AS nome_contato,
                    transacoes.data,
@@ -165,6 +166,7 @@ exports.getTransactions = async (req, res, next) => {
             return {
                 id_transacao: transacao.id_transacao,
                 id_conta: transacao.id_conta,
+                id_contexto: transacao.id_contexto,
                 id_contato: transacao.id_contato,
                 nome_contato: transacao.nome_contato,
                 data: transacao.data,

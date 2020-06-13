@@ -19,9 +19,7 @@ exports.findByName = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
     try {
-        if (req.body.id_contato) {
-         next();   
-        } else {
+        if (req.body.nome_contato && !req.body.id_contato) {
             const query = `
                 INSERT INTO contatos (
                     id_contexto,
@@ -33,8 +31,8 @@ exports.create = async (req, res, next) => {
                 req.body.nome_contato
             ]);
             req.body.id_contato = result.insertId;
-            next();
         }
+        next();
     } catch (error) {
         return res.status(500).send({ error: error });
     }

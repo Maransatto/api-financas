@@ -60,7 +60,7 @@ exports.update = async (req, res, next) => {
             req.body.aprovada,
             req.body.conciliada,
             req.body.nota,
-            req.body.valor,
+            req.body.valor_entrada > 0 ? req.body.valor_entrada : (req.body.valor_saida * -1),
             req.params.id_transacao
         ]);
         res.locals.transacao = {
@@ -93,19 +93,21 @@ exports.removeCategories = async (req, res, next) => {
 
 exports.setCategories = async (req, res, next) => {
     try {
-        const query = `
-            INSERT INTO transacoes_categorias (
-                id_transacao,
-                id_categoria,
-                valor
-            ) VALUES ?;`;
-        const categorias = req.body.categorias.map(c => [
-            res.locals.transacao.id_transacao,
-            c.id_categoria,
-            c.valor
-        ]);
-        mysql.execute(query, [categorias]);
-        res.locals.transacao.categorias = req.body.categorias;
+        if (req.body.categorias.length) {
+            const query = `
+                INSERT INTO transacoes_categorias (
+                    id_transacao,
+                    id_categoria,
+                    valor
+                ) VALUES ?;`;
+            const categorias = req.body.categorias.map(c => [
+                res.locals.transacao.id_transacao,
+                c.id_categoria,
+                c.valor
+            ]);
+            await mysql.execute(query, [categorias]);
+            res.locals.transacao.categorias = req.body.categorias;
+        }
         next();
     } catch (error) {
         return res.status(500).send({ error: error });
@@ -128,7 +130,7 @@ exports.getTransactions = async (req, res, next) => {
         let query = `
             SELECT transacoes.id_transacao,
                    transacoes.id_conta,
-                   contatos.id_contexto,
+                   contas.id_contexto,
                    contatos.id_contato,
                    contatos.nome            AS nome_contato,
                    transacoes.data,
@@ -174,7 +176,7 @@ exports.getTransactions = async (req, res, next) => {
                 conciliada: transacao.conciliada,
                 nota: transacao.nota,
                 valor_saida: transacao.valor_saida,
-                varor_entrada: transacao.valor_entrada
+                valor_entrada: transacao.valor_entrada
             }
         });
         next();

@@ -1,4 +1,5 @@
 const mysql = require('../../mysql');
+const dateFormat = require('dateFormat')
 
 exports.create = async (req, res, next) => {
     try {
@@ -173,7 +174,7 @@ exports.getTransactions = async (req, res, next) => {
                 id_contexto: transacao.id_contexto,
                 id_contato: transacao.id_contato,
                 nome_contato: transacao.nome_contato,
-                data: transacao.data,
+                data: dateFormat(transacao.data, 'yyyy-mm-dd'),
                 aprovada: transacao.aprovada,
                 conciliada: transacao.conciliada,
                 nota: transacao.nota,
